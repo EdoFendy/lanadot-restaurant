@@ -1,19 +1,11 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import Image from "next/image"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { ArrowLeft } from "lucide-react"
 import Link from "next/link"
-
-interface MenuImage {
-  id: number
-  image_path: string
-  image_alt: string
-  display_order: number
-}
 
 interface MenuItem {
   id: number
@@ -23,7 +15,6 @@ interface MenuItem {
   display_order: number
   is_available: boolean
   category_name: string
-  images: MenuImage[]
 }
 
 interface Category {
@@ -129,28 +120,6 @@ export default function MenuPage() {
                         className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/20 transition-all duration-500 hover:scale-105 group overflow-hidden"
                       >
                         <CardContent className="p-0">
-                          {/* Item Images */}
-                          {item.images && item.images.length > 0 && (
-                            <div className="relative overflow-hidden">
-                              <Image
-                                src={item.images[0].image_path}
-                                alt={item.images[0].image_alt || item.title}
-                                width={400}
-                                height={300}
-                                className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
-                              />
-                              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                              {item.images.length > 1 && (
-                                <Badge
-                                  variant="secondary"
-                                  className="absolute top-3 right-3 bg-[#c6976c] text-white"
-                                >
-                                  +{item.images.length - 1} foto
-                                </Badge>
-                              )}
-                            </div>
-                          )}
-
                           {/* Item Content */}
                           <div className="p-6">
                             <div className="flex justify-between items-start mb-3">

@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
-import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -14,13 +13,6 @@ import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Plus, Edit, Trash2, LogOut, Eye, Upload, X } from "lucide-react"
 
-interface MenuImage {
-  id: number
-  image_path: string
-  image_alt: string
-  display_order: number
-}
-
 interface MenuItem {
   id: number
   title: string
@@ -30,7 +22,6 @@ interface MenuItem {
   is_available: boolean
   category_name: string
   category_id: number
-  images: MenuImage[]
 }
 
 interface Category {
@@ -57,7 +48,7 @@ export default function AdminMenuPage() {
     category_id: "",
     is_available: true
   })
-  const [selectedImages, setSelectedImages] = useState<File[]>([])
+  // No images handled now
   
   const router = useRouter()
 
@@ -117,21 +108,18 @@ export default function AdminMenuPage() {
       const method = editingItem ? 'PUT' : 'POST'
       const url = editingItem ? `/api/admin/menu-items/${editingItem.id}` : '/api/admin/menu-items'
       
-      const formDataToSend = new FormData()
-      formDataToSend.append('title', formData.title)
-      formDataToSend.append('description', formData.description)
-      formDataToSend.append('price', formData.price)
-      formDataToSend.append('category_id', formData.category_id)
-      formDataToSend.append('is_available', formData.is_available.toString())
-      
-      // Add images
-      selectedImages.forEach((image, index) => {
-        formDataToSend.append(`images`, image)
-      })
+      const payload = {
+        title: formData.title,
+        description: formData.description,
+        price: formData.price,
+        category_id: formData.category_id,
+        is_available: formData.is_available
+      }
 
       const response = await fetch(url, {
         method,
-        body: formDataToSend
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
       })
 
       if (response.ok) {
@@ -175,7 +163,6 @@ export default function AdminMenuPage() {
       category_id: "",
       is_available: true
     })
-    setSelectedImages([])
     setEditingItem(null)
   }
 
@@ -191,11 +178,7 @@ export default function AdminMenuPage() {
     setIsDialogOpen(true)
   }
 
-  const handleImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      setSelectedImages(Array.from(e.target.files))
-    }
-  }
+  // No image selection now
 
   if (authenticated === null || loading) {
     return (
@@ -342,22 +325,7 @@ export default function AdminMenuPage() {
                   </div>
                 </div>
 
-                <div className="space-y-3">
-                  <Label htmlFor="images" className="text-[#04241f] font-semibold text-base">Immagini</Label>
-                  <Input
-                    id="images"
-                    type="file"
-                    multiple
-                    accept="image/*"
-                    onChange={handleImageSelect}
-                    className="bg-white border-2 border-[#c6976c]/40 focus:border-[#c6976c] text-[#04241f] file:bg-[#c6976c] file:text-white file:border-0 file:rounded-md file:px-4 file:py-2 file:mr-4 file:hover:bg-[#f0c243] file:transition-colors"
-                  />
-                  {selectedImages.length > 0 && (
-                    <div className="text-sm text-[#0c3930] font-medium bg-[#c6976c]/10 p-3 rounded-lg">
-                      ✅ {selectedImages.length} immagin{selectedImages.length === 1 ? 'e' : 'i'} selezionat{selectedImages.length === 1 ? 'a' : 'e'}
-                    </div>
-                  )}
-                </div>
+                 {/* Immagini rimosse */}
 
                 <div className="flex items-center justify-between pt-6 border-t border-[#c6976c]/20">
                   <div className="flex items-center space-x-3">
@@ -420,22 +388,7 @@ export default function AdminMenuPage() {
                 </div>
               </CardHeader>
               <CardContent>
-                {item.images && item.images.length > 0 && (
-                  <div className="relative mb-4 overflow-hidden rounded-lg">
-                    <Image
-                      src={item.images[0].image_path}
-                      alt={item.images[0].image_alt || item.title}
-                      width={300}
-                      height={200}
-                      className="w-full h-40 object-cover"
-                    />
-                    {item.images.length > 1 && (
-                      <Badge className="absolute top-2 right-2 bg-[#c6976c] text-white">
-                        +{item.images.length - 1}
-                      </Badge>
-                    )}
-                  </div>
-                )}
+                {/* Immagini rimosse */}
                 <p className="text-[#f5f1e8]/90 text-sm mb-4 line-clamp-3">
                   {item.description}
                 </p>

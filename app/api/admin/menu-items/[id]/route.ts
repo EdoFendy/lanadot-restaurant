@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { menuQueries } from '@/lib/db'
-import { writeFile, unlink } from 'fs/promises'
-import { join } from 'path'
 
 // Middleware to check admin authentication
 function checkAuth(request: NextRequest) {
@@ -20,13 +18,13 @@ export async function PUT(
 
   try {
     const id = parseInt(params.id)
-    const formData = await request.formData()
+    const body = await request.json()
     
-    const title = formData.get('title') as string
-    const description = formData.get('description') as string
-    const price = formData.get('price') as string
-    const categoryId = formData.get('category_id') as string
-    const isAvailable = formData.get('is_available') === 'true'
+    const title = body.title as string
+    const description = body.description as string
+    const price = (body.price ?? "") as string
+    const categoryId = body.category_id as string
+    const isAvailable = Boolean(body.is_available)
     
     if (!title || !description || !categoryId) {
       return NextResponse.json(
@@ -55,42 +53,7 @@ export async function PUT(
       id
     )
 
-    // Handle new image uploads if provided
-    const images = formData.getAll('images') as File[]
-    if (images.length > 0 && images[0].size > 0) {
-      // Delete old images first
-      const oldImages = menuQueries.getItemImages.all(id) as any[]
-      for (const oldImage of oldImages) {
-        try {
-          await unlink(join(process.cwd(), 'public', oldImage.image_path))
-        } catch (err) {
-          console.warn('Could not delete old image:', oldImage.image_path)
-        }
-      }
-      menuQueries.deleteItemImages.run(id)
 
-      // Add new images
-      for (let i = 0; i < images.length; i++) {
-        const image = images[i]
-        if (image && image.size > 0) {
-          const bytes = await image.arrayBuffer()
-          const buffer = Buffer.from(bytes)
-          
-          const fileName = `${Date.now()}-${i}-${image.name}`
-          const imagePath = `/uploads/menu/${fileName}`
-          const fullPath = join(process.cwd(), 'public', imagePath)
-          
-          await writeFile(fullPath, buffer)
-          
-          menuQueries.insertItemImage.run(
-            id,
-            imagePath,
-            `${title} - Immagine ${i + 1}`,
-            i
-          )
-        }
-      }
-    }
 
     return NextResponse.json({ success: true })
   } catch (error) {
@@ -111,17 +74,7 @@ export async function DELETE(
   try {
     const id = parseInt(params.id)
     
-    // Delete associated images from filesystem
-    const images = menuQueries.getItemImages.all(id) as any[]
-    for (const image of images) {
-      try {
-        await unlink(join(process.cwd(), 'public', image.image_path))
-      } catch (err) {
-        console.warn('Could not delete image:', image.image_path)
-      }
-    }
-    
-    // Delete from database (images will be deleted by foreign key constraint)
+    // Delete from database
     menuQueries.deleteMenuItem.run(id)
 
     return NextResponse.json({ success: true })

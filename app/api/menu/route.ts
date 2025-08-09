@@ -25,9 +25,6 @@ export async function GET() {
       
       // Add item if it exists
       if (row.item_id) {
-        // Get images for this item
-        const images = menuQueries.getItemImages.all(row.item_id) as any[]
-        
         const item = {
           id: row.item_id,
           title: row.item_title,
@@ -35,8 +32,7 @@ export async function GET() {
           price: row.item_price,
           display_order: row.item_order,
           is_available: row.item_available,
-          category_name: categoryName,
-          images: images
+          category_name: categoryName
         }
         
         categoriesMap.get(categoryId).items.push(item)

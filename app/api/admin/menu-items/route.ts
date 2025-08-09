@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { menuQueries } from '@/lib/db'
-import { writeFile } from 'fs/promises'
-import { join } from 'path'
 
 // Middleware to check admin authentication
 function checkAuth(request: NextRequest) {
@@ -17,14 +15,7 @@ export async function GET(request: NextRequest) {
 
   try {
     const items = menuQueries.getAllItems.all()
-    
-    // Add images for each item
-    const itemsWithImages = items.map((item: any) => {
-      const images = menuQueries.getItemImages.all(item.id)
-      return { ...item, images }
-    })
-
-    return NextResponse.json(itemsWithImages)
+    return NextResponse.json(items)
   } catch (error) {
     console.error('Error fetching menu items:', error)
     return NextResponse.json({ error: 'Errore nel caricamento' }, { status: 500 })
@@ -38,13 +29,12 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const formData = await request.formData()
-    
-    const title = formData.get('title') as string
-    const description = formData.get('description') as string
-    const price = formData.get('price') as string
-    const categoryId = formData.get('category_id') as string
-    const isAvailable = formData.get('is_available') === 'true'
+    const body = await request.json()
+    const title = body.title as string
+    const description = body.description as string
+    const price = (body.price ?? "") as string
+    const categoryId = body.category_id as string
+    const isAvailable = Boolean(body.is_available)
     
     if (!title || !description || !categoryId) {
       return NextResponse.json(
@@ -73,32 +63,6 @@ export async function POST(request: NextRequest) {
     )
 
     const itemId = result.lastInsertRowid as number
-
-    // Handle image uploads
-    const images = formData.getAll('images') as File[]
-    for (let i = 0; i < images.length; i++) {
-      const image = images[i]
-      if (image && image.size > 0) {
-        const bytes = await image.arrayBuffer()
-        const buffer = Buffer.from(bytes)
-        
-        // Generate unique filename
-        const fileName = `${Date.now()}-${i}-${image.name}`
-        const imagePath = `/uploads/menu/${fileName}`
-        const fullPath = join(process.cwd(), 'public', imagePath)
-        
-        await writeFile(fullPath, buffer)
-        
-        // Save image reference to database
-        menuQueries.insertItemImage.run(
-          itemId,
-          imagePath,
-          `${title} - Immagine ${i + 1}`,
-          i
-        )
-      }
-    }
-
     return NextResponse.json({ success: true, id: itemId })
   } catch (error) {
     console.error('Error creating menu item:', error)

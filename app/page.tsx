@@ -261,7 +261,7 @@ export default function HomePage() {
           </div>
           <h1 className="text-4xl md:text-6xl font-extralight mb-6 tracking-wide animate-fade-in-up-delay leading-tight font-georgia">
             Tradizione, cura, atmosfera.
-            <br />L'essenziale per stare bene.
+            <br />L’essenziale per stare bene.
           </h1>
           <div className="text-center mb-10 animate-fade-in-up-delay">
             <p className="text-lg md:text-xl font-light opacity-90 mb-4">Via del Capanno, 37 - Lodi</p>
@@ -295,56 +295,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Menu Section */}
-      <section id="menu" className="py-32 bg-white relative overflow-hidden">
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute top-20 right-10 w-32 h-32 bg-[#c6976c] rounded-full animate-float"></div>
-          <div className="absolute bottom-20 left-10 w-24 h-24 bg-[#f0c243] rounded-full animate-float-delay"></div>
-        </div>
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div
-            data-animate
-            id="menu-title"
-            className={`text-center mb-16 transition-all duration-1000 ${
-              visibleElements.has("menu-title") ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-            }`}
-          >
-            <h2 className="text-5xl md:text-6xl font-extralight text-[#04241f] mb-6 leading-tight font-georgia">
-              Il nostro <span className="text-[#c6976c]">Menù</span>
-            </h2>
-            <p className="text-xl text-[#0c3930] font-light max-w-3xl mx-auto">
-              Scopri le nostre specialità preparate ogni giorno con ingredienti freschi e di stagione
-            </p>
-          </div>
-          
-          <div
-            data-animate
-            id="menu-cta"
-            className={`text-center transition-all duration-1000 delay-300 ${
-              visibleElements.has("menu-cta") ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-            }`}
-          >
-            <div className="bg-gradient-to-r from-[#c6976c]/10 to-[#f0c243]/10 rounded-3xl p-12 border border-[#c6976c]/20">
-              <h3 className="text-2xl font-light text-[#04241f] mb-6 font-georgia">
-                Menu sempre aggiornato
-              </h3>
-              <p className="text-[#0c3930] font-light mb-8 max-w-2xl mx-auto">
-                Il nostro menu cambia con le stagioni per offrirvi sempre il meglio. 
-                Scoprite i piatti di oggi e lasciatevi sorprendere dai sapori autentici della nostra cucina.
-              </p>
-              <Button
-                asChild
-                size="lg"
-                className="bg-[#04241f] hover:bg-[#0c3930] text-[#f5f1e8] hover:text-white font-light px-12 py-4 transition-all duration-300 hover:scale-105 hover:shadow-xl border-2 border-[#04241f]"
-              >
-                <Link href="/menu">
-                  Scopri il Menu Completo
-                </Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
+      
 
       {/* About Section */}
       <section id="chisiamo" className="py-32 bg-[#f5f1e8] relative overflow-hidden">
@@ -363,8 +314,7 @@ export default function HomePage() {
             >
               <div className="space-y-8 text-[#0c3930] text-lg font-light leading-relaxed">
                 <p>
-                  L'Anadot è la sintesi di due percorsi, da una parte, una grande passione per il buon cibo ed il buon vino e, dall'altra, l'esperienza di 25 anni di lavoro nel mondo della ristorazione: pizzerie affollate fino all'alba, ristoranti eleganti in piazza, cucine che hanno lasciato un segno —{" "}
-                  <em className="text-[#c6976c]">Alberto Franceschini "Franz"</em>
+                  L'Anadot è la sintesi di due percorsi, da una parte, una grande passione per il buon cibo   ed il buon vino e, dall'altra, l'esperienza di 25 anni di lavoro nel mondo della ristorazione: pizzerie affollate fino all'alba, ristoranti eleganti in piazza, cucine che hanno lasciato un segno - Alberto Franceschini "Franz"
                 </p>
                 <p>
                   Oggi tutto questo si ritrova in un posto nuovo, affacciato sul fiume, tranquillo e curato. Una cucina attenta, una carta dei vini selezionata con criterio, un servizio presente e competente.
@@ -397,60 +347,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Ristorazione Section */}
-      <section id="ristorazione" className="py-32 bg-white relative overflow-hidden">
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute top-32 right-20 w-40 h-40 bg-[#c6976c] rounded-full animate-float"></div>
-          <div className="absolute bottom-32 left-20 w-28 h-28 bg-[#f0c243] rounded-full animate-float-delay"></div>
-        </div>
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-            <div
-              data-animate
-              id="ristorazione-image"
-              className={`relative transition-all duration-1000 ${
-                visibleElements.has("ristorazione-image") ? "opacity-100 -translate-x-0" : "opacity-0 -translate-x-10"
-              }`}
-            >
-              <div className="absolute -inset-4 bg-gradient-to-r from-[#c6976c]/20 to-[#f0c243]/20 rounded-2xl blur-xl"></div>
-              <Image
-                src="/images/seating.jpg"
-                alt="Seating L'Anadot"
-                width={600}
-                height={800}
-                className="rounded-2xl shadow-2xl relative z-10 hover:scale-105 transition-transform duration-500"
-              />
-            </div>
-            <div
-              data-animate
-              id="ristorazione-text"
-              className={`transition-all duration-1000 delay-300 ${
-                visibleElements.has("ristorazione-text") ? "opacity-100 translate-x-0" : "opacity-0 translate-x-10"
-              }`}
-            >
-              <h2 className="text-5xl md:text-6xl font-extralight text-[#04241f] mb-10 leading-tight font-georgia">
-                Il nostro modo di fare <span className="text-[#c6976c]">Ristorazione</span>
-              </h2>
-              <div className="space-y-8 text-[#0c3930] text-lg font-light leading-relaxed">
-                <p>L'Anadot è la sintesi di un lungo percorso.</p>
-                <p>
-                  Ogni piatto, ogni scelta in cucina, ogni dettaglio del servizio riflette l'esperienza di chi, da oltre
-                  due decenni, lavora ogni giorno per fare ristorazione in modo serio.
-                </p>
-                <p>
-                  Dietro a questo locale c'è un'idea precisa: raccogliere il meglio di quanto è stato fatto nei
-                  ristoranti precedenti, lasciando da parte ciò che non ha funzionato e puntando tutto sulla qualità
-                  vera.
-                </p>
-                <p className="text-[#c6976c] font-medium text-xl">
-                  Il risultato è un ristorante che non segue mode, ma ascolta le stagioni, il territorio e il buon
-                  senso.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Cuisine Section - REDESIGNED */}
       <section id="cucina" className="py-32 bg-[#0c3930] relative overflow-hidden">
@@ -546,8 +442,7 @@ export default function HomePage() {
                 <h3 className="text-2xl font-light text-white mb-6 font-georgia">Il Territorio</h3>
                 <div className="text-[#f5f1e8] font-light leading-relaxed space-y-4">
                   <p>
-                    <strong>La base è territoriale: Lodi e la Lombardia sono il cuore.</strong> Ma ci sono influenze
-                    toscane, siciliane, personali.
+                    La base è territoriale: Lodi e la Lombardia sono il cuore. Ma ci sono influenze toscane, siciliane, francesi e personali.
                   </p>
                   <p>Contaminazioni che non snaturano, ma arricchiscono. Un equilibrio tra tradizione e innovazione.</p>
                 </div>
@@ -573,9 +468,7 @@ export default function HomePage() {
                     fatta.
                   </p>
                   <p>
-                    A L'Anadot si trova carne, pesce, verdure, paste fresche, piatti della tradizione e idee nuove. Non
-                    per accontentare tutti, ma per accogliere chiunque abbia voglia di mangiare —{" "}
-                    <strong>davvero bene</strong>.
+                    A L'Anadot si trova carne, pesce, verdure, paste fresche, piatti della tradizione e idee nuove. Non per accontentare tutti, ma per accogliere chiunque abbia voglia di mangiare — davvero bene.
                   </p>
                 </div>
               </div>
@@ -792,6 +685,33 @@ export default function HomePage() {
             <div className="text-center mt-6">
               <p className="text-[#f5f1e8]/60 text-sm font-light">← Scorri per vedere tutte le immagini →</p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Menu CTA (moved near the end) */}
+      <section id="menu" className="py-24 bg-white relative overflow-hidden">
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute top-10 right-10 w-24 h-24 bg-[#c6976c] rounded-full animate-float"></div>
+          <div className="absolute bottom-10 left-10 w-20 h-20 bg-[#f0c243] rounded-full animate-float-delay"></div>
+        </div>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center mb-10">
+            <h2 className="text-4xl md:text-5xl font-extralight text-[#04241f] mb-4 leading-tight font-georgia">
+              Il nostro <span className="text-[#c6976c]">Menù</span>
+            </h2>
+            <p className="text-lg text-[#0c3930] font-light max-w-3xl mx-auto">
+              Scopri le nostre specialità preparate ogni giorno con ingredienti freschi e di stagione
+            </p>
+          </div>
+          <div className="text-center">
+            <Button
+              asChild
+              size="lg"
+              className="bg-[#04241f] hover:bg-[#0c3930] text-[#f5f1e8] hover:text-white font-light px-12 py-4 transition-all duration-300 hover:scale-105 hover:shadow-xl border-2 border-[#04241f]"
+            >
+              <Link href="/menu">Scopri il Menu Completo</Link>
+            </Button>
           </div>
         </div>
       </section>
